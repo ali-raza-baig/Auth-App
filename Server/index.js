@@ -8,7 +8,9 @@ dotenv.config()
 // Database Config
 DbConnection()
 
-
+app.get("/", (req, res) => {
+    res.send("Good Ali")
+})
 // Routes 
 app.use("/api/v1/", authRoutes)
 
