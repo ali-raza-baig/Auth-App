@@ -21,3 +21,25 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# dependencies
+/Server/node_modules
+/Server/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/Server/build
+
+# misc
+/Server/.DS_Store
+/Server/.env.local
+/Server/.env.development.local
+/Server/.env.test.local
+/Server/.env.production.local
+
+/Server/npm-debug.log*
+/Server/yarn-debug.log*
+yarn-error.log*
