@@ -14,6 +14,9 @@ dotenv.config();
 // Initialize database connection
 DbConnection();
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 // Determine __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,7 +30,7 @@ app.get('*', (req, res) => {
 });
 
 // Define API routes (these routes will be handled by authRoutes)
-app.use("/api/v1/", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 // Start the server on the specified port in .env (e.g., process.env.PORT=5000)
 app.listen(process.env.PORT, () => {
