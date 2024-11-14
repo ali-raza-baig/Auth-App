@@ -7,19 +7,19 @@ function Login() {
         <form className="bg-slate-400 flex flex-col gap-8 my-20 p-12 rounded">
           <h2 className="text-4xl text-center">Login</h2>
           <div className="flex flex-col gap-1">
-            <label>Username</label>
+            <label>Email or Phone No:</label>
             <input
               type="text"
               className="bg-gray-200 p-3 rounded w-96"
-              placeholder="Enter your UserName"
+              placeholder="Enter your email address or phone number"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label>Email</label>
+            <label>Password</label>
             <input
-              type="Email"
+              type="password"
               className="bg-gray-200 p-3 rounded w-96"
-              placeholder="Enter your Email"
+              placeholder="Enter your Password"
             />
             <p className="text-end my-1">Forget password?</p>
           </div>
