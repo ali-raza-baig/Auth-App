@@ -2,6 +2,7 @@ import './App.css'
 import ForgetPassword from './pages/ForgetPassword'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Verification from './pages/Verification'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
     <Login/>
     <Signup/>
     <ForgetPassword/>
+    <Verification/>
     </>
   )
 }

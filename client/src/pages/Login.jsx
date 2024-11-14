@@ -24,7 +24,7 @@ function Login() {
             <p className="text-end my-1">Forget password?</p>
           </div>
           <div>
-            <button className="bg-black text-white w-96 p-2 rounded-2xl">Login</button>
+            <button className="bg-black hover:bg-gray-800 text-white w-96 p-2 rounded-2xl">Login</button>
           </div>
           <div>
             <p className="text-center text-gray-800">Not a Member? <u><span>Signup Now</span></u></p>

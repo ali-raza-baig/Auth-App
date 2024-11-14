@@ -15,8 +15,8 @@ function ForgetPassword() {
             />
           </div>
           <div className='space-x-3 text-end'>
-            <button className="bg-black text-white px-3 py-2 rounded-xl">Cancel</button>
-            <button className='bg-black text-white px-3 py-2 rounded-xl'>Search</button>
+            <button className="bg-black hover:bg-gray-800 text-white px-3 py-2 rounded-xl">Cancel</button>
+            <button className='bg-black hover:bg-gray-800 text-white px-3 py-2 rounded-xl'>Search</button>
           </div>
         </form>
       </div>

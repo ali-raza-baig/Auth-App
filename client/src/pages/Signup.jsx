@@ -39,7 +39,7 @@ function Signup() {
             />
           </div>
           <div className='my-2'>
-            <button className="bg-black text-white w-[33rem] p-2 rounded-2xl">Register</button>
+            <button className="bg-black hover:bg-gray-800 text-white w-[33rem] p-2 rounded-2xl">Register</button>
           </div>
         </form>
       </div>
