@@ -1,5 +1,6 @@
 import User from "../Models/userModel.js";
 import bcrypt from "bcrypt"
+import { generatetoken } from "../Utility/generatetoken.js";
 
 // Register Controller
 export const registerController = async (req, res) => {
@@ -109,6 +110,79 @@ export const loginController = async (req, res) => {
 
     } catch (error) {
         console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Server Error"
+        })
+    }
+}
+
+// forget Password 
+export const forgetPasswod = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(200).send({
+                success: false,
+                message: "User not Exist."
+            })
+        }
+        const token = generatetoken()
+        const resetTokenExpiresAt = Date.now() + 1 * 60 * 60 * 1000  // 1 houre
+
+        user.resetPasswordToken = token
+        user.resetPasswordExpiresAt = resetTokenExpiresAt
+        await user.save()
+        res.status(200).send({
+            success: true,
+            message: "Reset Link Send to your email"
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Server Error",
+            error
+        })
+    }
+}
+
+
+// Reset password 
+
+export const restpasword = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const { token } = req.params;
+
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpiresAt: { $gt: Date.now() }
+        })
+
+        if (!user) {
+            return res.status(200).send({
+                success: false,
+                message: "Invalid Token or Expire Token"
+            })
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10)
+        user.password = hashedPassword
+        user.resetPasswordExpiresAt = undefined
+        user.resetPasswordToken = undefined
+
+        await user.save()
+        res.status(200).send({
+            success: true,
+            message: "Password Reset Seccessfully"
+        })
+
+
+    } catch (error) {
+        console.log(error)
         res.status(500).send({
             success: false,
             message: "Server Error"
