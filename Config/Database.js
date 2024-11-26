@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv'
+dotenv.config()
 
-console.log(process.env.MONGOURI)
 const DbConnection = async () => {
     try {
-        mongoose.connect("mongodb+srv://alirazabaigmdk:A1L2i3r4@test-cluster.fo5kjwp.mongodb.net/Auth-App?retryWrites=true&w=majority&appName=Test-Cluster")
+        mongoose.connect(process.env.MONGOURI)
 
         console.log('Database Connected')
     } catch (error) {
