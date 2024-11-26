@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import cors from 'cors'
 
 const app = express(); // Initialize Express app
 
@@ -20,6 +21,7 @@ DbConnection();
 app.use(express.json());
 app.use(morgan("combined"))
 app.use(cookieParser())
+app.use(cors())
 
 // Determine __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);

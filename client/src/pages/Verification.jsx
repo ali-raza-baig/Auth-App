@@ -1,23 +1,47 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function Verification() {
+  // State to handle OTP input
+  const [otp, setOtp] = useState("");
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.post(`${import.meta.env.VITE_APP_API_URL}/varifyaccount`, { token: otp })
+      console.log(data)
+    } catch (error) {
+
+    }
+  };
+
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center">
-        <form className="bg-slate-400 flex flex-col gap-8 my-20 p-12 rounded w-[40rem]">
-          <h2 className="text-4xl text-center">Find Your Account</h2>
-          <p className="text-xl text-center">
-           Verify your account with OTP
+    <div className="flex justify-center items-center min-h-screen px-4 bg-gray-100">
+      <div className="flex flex-col justify-center items-center w-full max-w-lg">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-slate-400 flex flex-col gap-6 p-8 md:p-12 rounded w-full"
+        >
+          <p className="text-sm md:text-xl text-center text-gray-700">
+            Verify your account with OTP
           </p>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-2">
             <input
               type="text"
-              className="bg-gray-200 text-center p-3 rounded w-[35rem]"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              className="bg-gray-200 text-center p-3 rounded w-full"
               placeholder="Enter One Time Password"
+              maxLength="6" // Example: OTP length restriction
             />
           </div>
-          <div className="space-x-3 text-center">
-            <button className="bg-black hover:bg-gray-800 text-white w-[35rem] px-3 py-2 my-5 rounded-xl">
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="bg-black hover:bg-gray-800 text-white w-full py-2 rounded-lg"
+            >
               Verify
             </button>
           </div>

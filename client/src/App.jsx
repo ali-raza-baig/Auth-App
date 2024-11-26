@@ -1,17 +1,13 @@
-import './App.css'
-import ForgetPassword from './pages/ForgetPassword'
-import Login from './pages/Login'
+import React from 'react'
 import Signup from './pages/Signup'
+import { Route, Routes } from 'react-router-dom'
 import Verification from './pages/Verification'
-
-function App() {
+const App = () => {
   return (
-    <>
-    <Login/>
-    <Signup/>
-    <ForgetPassword/>
-    <Verification/>
-    </>
+    <Routes>
+      <Route path='/' element={<Signup />} />
+      <Route path='/verification' element={<Verification />} />
+    </Routes>
   )
 }
 
