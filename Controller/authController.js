@@ -1,6 +1,7 @@
+import generatetokenandsetcookie from "../Middleware/genrateToken.js";
 import User from "../Models/userModel.js";
 import bcrypt from "bcrypt"
-import { generatetoken } from "../Utility/generatetoken.js";
+import { sendVerificationEmail } from "../Nodemailer/emails.js";
 
 // Register Controller
 export const registerController = async (req, res) => {
@@ -31,6 +32,10 @@ export const registerController = async (req, res) => {
             verificationTokenExpiresAt: new Date(Date.now() + 60 * 60 * 1000)
         })
         await user.save()
+        // jwt 
+        generatetokenandsetcookie(user._id, res)
+        //Send Emails
+        sendVerificationEmail(email, verificationToken)
         res.status(200).send({
             success: true,
             message: "Register Successfully."
@@ -103,6 +108,7 @@ export const loginController = async (req, res) => {
 
         user.lastlogin = Date.now();
         await user.save();
+        generatetokenandsetcookie(user._id, res)
         res.status(200).send({
             success: false,
             message: "Login Successfuly"
@@ -188,4 +194,9 @@ export const restpasword = async (req, res) => {
             message: "Server Error"
         })
     }
+}
+
+// test 
+export const test = (req, res) => {
+    res.json("Success")
 }

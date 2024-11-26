@@ -5,6 +5,8 @@ import DbConnection from "./Config/Database.js";
 import authRoutes from "./Routes/authRoutes.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
 
 const app = express(); // Initialize Express app
 
@@ -16,6 +18,8 @@ DbConnection();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(morgan("combined"))
+app.use(cookieParser())
 
 // Determine __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
