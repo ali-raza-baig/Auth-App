@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { registeruser } from '../Redux/UserSlice';
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -8,6 +10,7 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmitSignup = async (e) => {
     e.preventDefault();
@@ -20,11 +23,12 @@ function Signup() {
         email,
         password
       }
-      const { data } = await axios.post(`${import.meta.env.VITE_APP_API_URL}/register`, registerData)
-      if (data.success === true) {
-        navigate("/verification")
-      }
-      console.log(data)
+      dispatch(registeruser(registerData))
+      // const { data } = await axios.post(`${import.meta.env.VITE_APP_API_URL}/register`, registerData)
+      // if (data.success === true) {
+      //   navigate("/verification")
+      // }
+      // console.log(data)
     } catch (error) {
       console.log(error)
     }

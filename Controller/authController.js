@@ -38,7 +38,8 @@ export const registerController = async (req, res) => {
         sendVerificationEmail(email, verificationToken)
         res.status(200).send({
             success: true,
-            message: "Register Successfully."
+            message: "Register Successfully.",
+            users: user
         })
     } catch (error) {
         console.log(error)

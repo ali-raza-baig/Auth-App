@@ -4,7 +4,10 @@ dotenv.config()
 
 const DbConnection = async () => {
     try {
-        mongoose.connect(process.env.MONGOURI)
+        mongoose.connect(process.env.MONGOURI,  {
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true,
+          })
 
         console.log('Database Connected')
     } catch (error) {
