@@ -33,13 +33,12 @@ export const registerController = async (req, res) => {
         })
         await user.save()
         // jwt 
-        generatetokenandsetcookie(user._id, res)
+        const token = generatetokenandsetcookie(user._id, res)
         //Send Emails
         sendVerificationEmail(email, verificationToken)
         res.status(200).send({
             success: true,
-            message: "Register Successfully.",
-            users: user
+            message: "Register Successfully."
         })
     } catch (error) {
         console.log(error)
@@ -109,10 +108,17 @@ export const loginController = async (req, res) => {
 
         user.lastlogin = Date.now();
         await user.save();
-        generatetokenandsetcookie(user._id, res)
+        const token = generatetokenandsetcookie(user._id, res)
         res.status(200).send({
-            success: false,
-            message: "Login Successfuly"
+            success: true,
+            message: "Login Successfuly",
+            token,
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                isvarified: user.isvarified,
+            }
         })
 
     } catch (error) {

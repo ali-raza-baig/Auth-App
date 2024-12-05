@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom"
 function Verification() {
   // State to handle OTP input
   const [otp, setOtp] = useState("");
+  const navigate = useNavigate()
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -11,7 +12,10 @@ function Verification() {
 
     try {
       const { data } = await axios.post(`${import.meta.env.VITE_APP_API_URL}/varifyaccount`, { token: otp })
-      console.log(data)
+      // console.log(data)
+      if (data.success === true) {
+        navigate("/login");
+      }
     } catch (error) {
 
     }

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from 'axios'
+// import { token } from "morgan"
 const initialState = {
     user: null,
     loading: false,
@@ -23,6 +24,7 @@ export const loginuser = createAsyncThunk(
     async (userCredentials, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${import.meta.env.VITE_APP_API_URL}/login`, userCredentials)
+            localStorage.setItem('token', data.token)
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data || "Login Failed")
@@ -33,6 +35,16 @@ export const loginuser = createAsyncThunk(
 const UserSlice = createSlice({
     name: "User",
     initialState,
+    reducers: {
+        setCredentionals: (state, action) => {
+            state.user = action.payload;
+            localStorage.setItem("user", JSON.stringify(action.payload))
+        },
+        logout: (state, action) => {
+            state.user = null;
+            localStorage.removeItem("user");
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(registeruser.pending, (state) => {
@@ -56,7 +68,9 @@ const UserSlice = createSlice({
                 state.error = null
             })
             .addCase(loginuser.fulfilled, (state, action) => {
+                console.log("Login response:", action.payload);
                 state.user = action.payload;
+                localStorage.setItem("user", JSON.stringify(action.payload))
                 state.loading = false;
                 state.error = null
             })
@@ -67,5 +81,7 @@ const UserSlice = createSlice({
             })
     }
 })
+
+export const { userCredentials, logout } = UserSlice.actions;
 
 export default UserSlice.reducer;
