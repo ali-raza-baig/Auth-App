@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginuser } from '../Redux/UserSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
-  const success = useSelector((state) => state.user.user && "Login Successful!");
+  const user = useSelector((state) => state.user.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,13 @@ const Login = () => {
     await dispatch(loginuser(userCredentials));
   };
 
+  useEffect(() => {
+    if (user && user.success === true) {
+      alert("Login Successfully");
+      navigate("/")
+    }
+  }, [user])
+
   return (
     <div className="flex justify-center items-center px-4">
       <div className="flex flex-col justify-center items-center w-full max-w-lg">
@@ -29,8 +38,12 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <h2 className="text-3xl md:text-4xl text-center">Login</h2>
-          {error && <div className="text-red-500 text-center">{error}</div>}
-          {success && <div className="text-white text-center">{success}</div>}
+          {error && typeof error === 'string' ? (
+            <div className="text-red-500 text-center">{error}</div>
+          ) : error && error.message ? (
+            <div className="text-red-500 text-center">{error.message}</div>
+          ) : null}
+          {/* {success && <div className="text-white text-center">{success}</div>} */}
           <div className="flex flex-col gap-1">
             <label>Email or Phone No:</label>
             <input
