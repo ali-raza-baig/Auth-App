@@ -1,7 +1,8 @@
 import generatetokenandsetcookie from "../Middleware/genrateToken.js";
 import User from "../Models/userModel.js";
 import bcrypt from "bcrypt"
-import { sendVerificationEmail } from "../Nodemailer/emails.js";
+import { sendPasswordChangeEmail, sendResetEmailLink, sendVerificationEmail } from "../Nodemailer/emails.js";
+import { generatetoken } from "../Utility/generatetoken.js";
 
 // Register Controller
 export const registerController = async (req, res) => {
@@ -147,6 +148,9 @@ export const forgetPasswod = async (req, res) => {
         user.resetPasswordToken = token
         user.resetPasswordExpiresAt = resetTokenExpiresAt
         await user.save()
+
+        // send Email 
+        sendResetEmailLink(email, token)
         res.status(200).send({
             success: true,
             message: "Reset Link Send to your email"
@@ -188,6 +192,8 @@ export const restpasword = async (req, res) => {
         user.resetPasswordToken = undefined
 
         await user.save()
+        // Send Email
+        sendPasswordChangeEmail(user.email)
         res.status(200).send({
             success: true,
             message: "Password Reset Seccessfully"
