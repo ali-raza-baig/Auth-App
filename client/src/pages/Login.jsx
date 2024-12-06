@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginuser } from '../Redux/UserSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout';
 
 const Login = () => {
@@ -66,9 +66,9 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="text-end my-1 text-sm md:text-base">
-                <a href="/forget-password" className="text-blue-500 hover:underline">
+                <Link to={'/forget-password'} className="text-blue-500 hover:underline">
                   Forget password?
-                </a>
+                </Link>
               </p>
             </div>
             <div>
@@ -83,12 +83,12 @@ const Login = () => {
             <div>
               <p className="text-center text-gray-800 text-xl">
                 Not a Member?{' '}
-                <a
-                  href="/signup"
+                <Link
+                  to={"/signup"}
                   className="text-blue-500 underline hover:no-underline"
                 >
                   Signup Now
-                </a>
+                </Link>
               </p>
             </div>
           </form>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { registeruser } from '../Redux/UserSlice';
 import Layout from '../Components/Layout';
@@ -102,12 +102,12 @@ function Signup() {
             <div>
               <p className="text-center text-gray-800 text-xl">
                 Already have an account?{' '}
-                <a
-                  href="/login"
+                <Link
+                to={"/login"}
                   className="text-blue-500 underline hover:no-underline"
                 >
                   Login Now
-                </a>
+                </Link>
               </p>
             </div>
           </form>
