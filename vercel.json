@@ -16,6 +16,10 @@
       "dest": "index.js"
     },
     {
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|svg|ico|json|txt|woff|woff2|ttf|otf|eot|ttc|map|webp))",
+      "dest": "/client/dist/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/client/dist/index.html"
     }
